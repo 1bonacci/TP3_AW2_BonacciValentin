@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="http://localhost:3000/login" method="POST">
+            <input type="text" name="usuario" />
+            <br />
+            <input type="password" name="pass" />
+            <br />
+            <button type="submit">Enviar</button>
+        </form>
+        <!-- <script>
+            const formulario = document.getElementById('id-form');
+            formulario.addEventListener('submit', async (ev) => {
+                ev.preventDefault();
+                const datos = new FormData(formulario);
+                const campos = Object.fromEntries(datos);
+                try {
+                    const respuesta = await fetch('./login', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                        },
+                        body: JSON.stringify(campos),
+                    });
+                    console.log(respuesta);
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+        </script> -->
+    </body>
 </html>
