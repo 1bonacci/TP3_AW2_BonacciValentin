@@ -9,8 +9,8 @@ const obtenerProducto = async (id_producto) => {
   // Solicitamos api
   try {
     const datos = await fetch(`http://localhost:3000/productos/${id_producto}`);
-    const producto = await datos.json();
-    
+    const jsonProductos = await datos.json();
+    const producto = jsonProductos[0];
     // Renderizar formulario
     renderizarFormulario(producto);
   } catch (error) {
@@ -65,34 +65,32 @@ const renderizarFormulario = (producto) => {
   });
 };
 const envioDatos = async (id_producto, cuerpo) => {
-    try {
-        const url = `http://localhost:3000/productos/${id_producto}`;
-        console.log('URL:', url);
-        console.log('Cuerpo:', cuerpo);
-
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-            },
-            body: cuerpo,
-        });
-
-        if (response.ok) {
-            mostrarMensajeOk('Producto modificado');
-        } else {
-            if (response.status === 400) {
-                mostrarMensajeAlerta('Datos incompletos');
-            } else {
-                throw new Error(`Error al modificar el producto: ${response.status} ${response.statusText}`);
-            }
-        }
-    } catch (error) {
-        console.error('Hubo un problema con la solicitud Fetch:', error);
-        mostrarMensajeAlerta('Error al enviar los datos');
+  const respuesta = await fetch(
+    `http://localhost:3000/productos/${id_producto}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: cuerpo,
     }
+  );
+  // Si todo fue OK:
+  if (respuesta.ok) {
+    mostrarMensajeOk("Invitado modificado");
+  }
+  // Si no:
+  else {
+    // El código 400 hace referencia a
+    // que el usuario no envio todos los datos
+    // Esto lo deben verificar uds. del lado del servidor
+    if (respuesta.status === 400) {
+      mostrarMensajeAlerta("Datos incompletos");
+    } else {
+      mostrarMensajeAlerta("Error desconocido");
+    }
+  }
 };
-
 const mostrarMensajeOk = (mensaje) => {
   contenedorMensaje.textContent = mensaje;
   contenedorMensaje.style.display = "block";
