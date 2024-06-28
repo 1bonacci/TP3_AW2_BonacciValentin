@@ -1,3 +1,6 @@
+
+-- En caso de no haber exportado bien la base de datos postgres estos fueron los comandos sql utilizados
+
 CREATE TABLE productos (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
